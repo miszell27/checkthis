@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is Michał gay?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose: #e8607a;
+      --blush: #fde8ed;
+      --cream: #fff8f0;
+      --deep: #2a1520;
+      --gold: #c9956e;
+    }
+
+    body {
+      background: var(--cream);
+      min-height: 100vh;
+      font-family: 'Lato', sans-serif;
+      color: var(--deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    /* floating petals bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(232,96,122,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, rgba(201,149,110,0.10) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      width: 100%;
+      background: #fff;
+      border-radius: 28px;
+      padding: 3rem 2.8rem 2.5rem;
+      box-shadow: 0 12px 60px rgba(232,96,122,0.15), 0 2px 8px rgba(0,0,0,0.06);
+      text-align: center;
+      animation: floatIn 0.9s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(36px) scale(.97); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .question-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      color: var(--deep);
+    }
+
+    h1 span {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    /* big NO badge */
+    .verdict {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--rose);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.4rem;
+      position: relative;
+    }
+    .verdict::after {
+      content: '✗';
+      position: absolute;
+      top: -0.15em;
+      right: -0.55em;
+      font-size: 0.45em;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* photo */
+    .photo-wrap {
+      width: 200px;
+      height: 148px;
+      border-radius: 18px;
+      margin: 0 auto 1.4rem;
+      border: 4px solid var(--blush);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 6px 24px rgba(232,96,122,0.2);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(232,96,122,0.2); }
+      50%      { box-shadow: 0 6px 32px rgba(232,96,122,0.45); }
+    }
+
+    .photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* kiss emoji popping */
+    .kiss {
+      font-size: 2.8rem;
+      display: block;
+      margin-bottom: 1rem;
+      animation: bounce 1.4s ease infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.18) rotate(-5deg); }
+    }
+
+    .answer {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.18rem;
+      line-height: 1.6;
+      color: var(--deep);
+      margin-bottom: 1.6rem;
+      padding: 0 0.5rem;
+    }
+
+    .answer strong {
+      font-style: normal;
+      color: var(--rose);
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--rose), var(--gold));
+      border-radius: 2px;
+      margin: 0 auto 1.4rem;
+    }
+
+    .sub {
+      font-size: 0.88rem;
+      color: #a07a85;
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+    }
+
+    /* hearts flying */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      bottom: -2rem;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: riseHeart linear infinite;
+    }
+    @keyframes riseHeart {
+      0%   { transform: translateY(0) scale(0.5) rotate(-15deg); opacity: 0.7; }
+      100% { transform: translateY(-110vh) scale(1.2) rotate(15deg); opacity: 0; }
+    }
+    @media (max-width: 480px) {
+      body { padding: 1rem; }
+      .card { padding: 2rem 1.4rem 2rem; border-radius: 20px; }
+      h1 { font-size: 1.55rem; margin-bottom: 1.4rem; }
+      .verdict { font-size: 3.8rem; }
+      .photo-wrap { width: 160px; height: 118px; }
+      .answer { font-size: 1rem; }
+      .kiss { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="card">
+  <p class="question-label">The burning question</p>
+  <h1>Is <span>Michał</span> gay?</h1>
+
+  <div class="verdict">NO</div>
+
+  <!-- zdjecie: ustaw plik o nazwie "dio.jpg" w tym samym folderze co ten plik HTML -->
+  <div class="photo-wrap">
+    <img src="dio.jpg" alt="Dio" />
+  </div>
+
+  <span class="kiss">💋</span>
+
+  <p class="answer">
+    He is <strong>definitely not gay</strong> — because he kissed <em>you</em> (unfortunately, only on the cheek).<br/>
+    How could he possibly be gay when <strong>you exist?</strong>
+  </p>
+
+  <div class="divider"></div>
+
+  <p class="sub">
+    You can sleep peacefully, Dio 😘
+  </p>
+</div>
+
+<script>
+  // spawn floating hearts
+  const container = document.getElementById('hearts');
+  const emojis = ['❤️','💕','💗','💖','💓','🌹','✨'];
+  for (let i = 0; i < 18; i++) {
+    const h = document.createElement('span');
+    h.className = 'heart';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.animationDuration = (6 + Math.random() * 8) + 's';
+    h.style.animationDelay = (Math.random() * 10) + 's';
+    h.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+    container.appendChild(h);
+  }
+</script>
+
+</body>
+</html>
